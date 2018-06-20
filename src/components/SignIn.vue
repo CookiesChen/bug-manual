@@ -79,8 +79,7 @@ export default {
         margin: auto;
         background-color: #3B4B65;
     }
-    #submit {
-        margin-top: 60px;
+    #submit {        margin-top: 60px;
     }
     #top_pic {
         font-size: 40px;
