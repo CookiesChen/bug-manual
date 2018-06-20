@@ -4,7 +4,7 @@
         <i id="top_pic" class="fa fa-user-plus"></i>
     </el-row>
     <el-row id="name_row">
-        <el-input id="name" v-model="name" placeholder="请输入帐号">  
+        <el-input id="account" v-model="account" placeholder="请输入帐号">  
             <template slot="prepend">帐号</template>
             <i slot="prefix" class="el-input__icon fa fa-user" aria-hidden="true"></i>
         </el-input>
@@ -41,7 +41,7 @@ export default {
   name: 'LogIn',
   data () {
     return {
-        name:'',
+        account:'',
         phone:'',
         password:'',
         sure_password:''
@@ -49,7 +49,17 @@ export default {
   },
     methods:{
         submit:function(){
+            var account = this.account;
+            var password = this.password;
+            var res = $.post('/api/regist',{account:account, password:password}, (data)=>{
+                console.log(data);
+                if(data.status == true){
+                    this.$router.push('/MainPage');
+                }
+                else{
 
+                }
+            });       
         },
         reset:function(){
             this.name = '';

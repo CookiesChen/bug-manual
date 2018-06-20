@@ -49,10 +49,17 @@ export default {
   },
     methods:{
         login:function(){
-            console.log(1);
             var account = this.account;
             var password = this.password;
-            $.post('/api/login',{account:account, password:password});
+            var res = $.post('/api/login',{account:account, password:password}, (data)=>{
+                console.log(data);
+                if(data.status == true){
+                    this.$router.push('/MainPage');
+                }
+                else{
+
+                }
+            });
         },
         signin:function(){
             this.$router.push('/SignIn');

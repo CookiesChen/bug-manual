@@ -16,6 +16,10 @@ export default new Router({
     {
       path: '/Signin',
       component: resolve => require(['@/components/SignIn'], resolve)
+    },
+    {
+      path: '/MainPage',
+      component: resolve => require(['@/components/MainPage/MainPage'], resolve) 
     }
   ]
 })
