@@ -3,8 +3,8 @@
     <el-row>
         <i id="top_pic" class="fa fa-car"></i>
     </el-row>
-    <el-row id="name">
-        <el-input v-model="name" placeholder="请输入帐号">  
+    <el-row id="account">
+        <el-input v-model="account" placeholder="请输入帐号">  
             <template slot="prepend">帐号</template>
             <i slot="prefix" class="el-input__icon fa fa-user" aria-hidden="true"></i>
         </el-input>
@@ -19,7 +19,7 @@
         <el-button 
             id="login" 
             type="primary" 
-            v-on:click="check()" 
+            v-on:click="login()" 
             display="block"
         >
             登录
@@ -43,12 +43,16 @@ export default {
   name: 'LogIn',
   data () {
     return {
-      
+      account : "",
+      password : ""
     }
   },
     methods:{
-        check:function(){
-
+        login:function(){
+            console.log(1);
+            var account = this.account;
+            var password = this.password;
+            $.post('/api/login',{account:account, password:password});
         },
         signin:function(){
             this.$router.push('/SignIn');
