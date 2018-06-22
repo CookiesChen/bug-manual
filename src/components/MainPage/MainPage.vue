@@ -1,16 +1,15 @@
 <template>
-  <div id="contain">
-    <el-row>
-        <el-button 
-            id="signin" 
-            type="primary" 
-            v-on:click="signin()" 
-            display="block"
-        >
-            Fuck
-        </el-button>
-    </el-row>
-  </div>
+    <div>
+        <el-menu
+          class="el-menu-demo" 
+          mode="horizontal" 
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+            <el-menu-item class="right" index="1">LogOut</el-menu-item>
+        </el-menu>
+    </div>
 </template>
 
 <script>
@@ -31,6 +30,15 @@ export default {
         },
         signin:function(){
             this.$router.push('/SignIn');
+        },
+        handleSelect(key, keyPath) {
+            console.log(key);
+            switch(key){
+                case '1':
+                    this.$router.push('/login');
+                    break;
+                default: break;
+            }
         }
     }
 }
@@ -41,6 +49,17 @@ export default {
     .el-button {
         margin-top: 20px;
         width: 60%;
+    }
+    .el-menu-demo {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    .right{
+        float: right;
+        position: relative;
+        right: 50px;
     }
     
 </style>
