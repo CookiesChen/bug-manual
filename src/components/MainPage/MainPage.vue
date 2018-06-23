@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-header :active.sync="active"></v-header>
+        <v-header :active.sync="active" :account.sync="account"></v-header>
         <router-view></router-view>
     </div>
 </template>

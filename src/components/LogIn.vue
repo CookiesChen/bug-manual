@@ -65,27 +65,18 @@ export default {
             var res = $.post('/api/login',{account:account, password:password}, (data)=>{
                 console.log(data);
                 if(data.status == true){
-                    if(password == data.user.password){
-                        this.$router.push({
-                            path: '/MainPage/UserInfo',
-                            name: 'UserInfo',
-                            params: {
-                                account: this.account,
-                                user: data.user
-                            }
-                        });
-                    }
-                    else {
-                        this.$message({
-                            message: "Wrong Password",
-                            center: true,
-                            type: 'error'
-                        });
-                    }
+                    this.$router.push({
+                        path: '/MainPage/UserInfo',
+                        name: 'UserInfo',
+                        params: {
+                            account: this.account,
+                            user: data.user
+                        }
+                    });
                 }
                 else{
                     this.$message({
-                        message: "No this User",
+                        message: data.msg,
                         center: true,
                         type: 'error'
                     });

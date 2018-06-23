@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="contain">
         <el-menu
           class="el-menu-demo" 
           mode="horizontal" 
@@ -11,8 +11,17 @@
             <el-menu-item class="right" index="2">Register</el-menu-item>
         </el-menu>
         <el-carousel :interval="4000" arrow="always">
-            <el-carousel-item v-for="item in 4" :key="item">
-                <img class="img" src="../assets/banner2.jpg"/>
+            <el-carousel-item>
+                <img class="img" src="../assets/b1.jpg"/>
+            </el-carousel-item>
+            <el-carousel-item>
+                <img class="img" src="../assets/b2.jpg"/>
+            </el-carousel-item>
+            <el-carousel-item>
+                <img class="img" src="../assets/b1.jpg"/>
+            </el-carousel-item>
+            <el-carousel-item>
+                <img class="img" src="../assets/b2.jpg"/>
             </el-carousel-item>
         </el-carousel>
     </div>
@@ -43,6 +52,9 @@
 </script>
 
 <style scoped>
+    #contain {
+        background-color: #99a9bf;
+    }
     .el-menu-demo {
         position: fixed;
         top: 0;
@@ -63,21 +75,18 @@
     }
 
     .el-carousel{
-        height: 500px;
+        height: 600px;
     }
 
     .el-carousel__item{
-        height: 430px;
-    }
-  
-    .el-carousel__item:nth-child(2n) {
+        height: 600px;
         background-color: #99a9bf;
     }
-  
-    .el-carousel__item:nth-child(2n+1) {
-        background-color: #d3dce6;
+    .el-carousel__item img{
+        position: relative;
+        top: -200px;
     }
-
+  
     .el-carousel__item .img {
         width: 100%;
     }

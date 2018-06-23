@@ -7,20 +7,40 @@
             <h1>{{account}}</h1>
             <p class="message">{{user.phone}} | {{user.phone}}</p>
         </div>
-        <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <span>卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-            </div>
-            <div v-for="o in 4" :key="o" class="text item">
-                {{account}}
-            </div>
-        </el-card>
+        <div id="ApplyTable">
+            <el-table :data="tableData" stripe style="width: 100%">
+                <el-table-column prop="id" label="驾校ID" width="200px"></el-table-column>
+                <el-table-column prop="phone" label="电话" width="200px"></el-table-column>
+                <el-table-column prop="phone" label="邮箱" width="200px"></el-table-column>
+                <el-table-column prop="phone" label="申请时间" width="200px"></el-table-column>
+                <el-table-column label="审核状态">
+                    <template slot-scope="scope">
+                        <el-tag :type="scope.row.state | statusFilter">{{scope.row.state | formatState}}</el-tag>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 
 <script>
   export default {
+      filters: {
+          statusFilter(status){
+              const statusMap = {
+                  true: 'success',
+                  false: 'info'
+              }
+              return statusMap[status];
+          },
+          formatState(status){
+              const statusMap = {
+                  true: '已通过',
+                  false: '审核中'
+              }
+              return statusMap[status];
+          },
+      },
       computed: {
             account() {
                 return this.$route.params.account;
@@ -31,12 +51,32 @@
       },
     data() {
       return {
+          tableData: [
+              {
+                  id: "山东蓝翔",
+                  phone: "12345",
+                  state: true
+              },
+              {
+                  id: "东莞足浴城",
+                  phone: "808088957456",
+                  state: false
+              },
+              {
+                  id: "澳门赌场",
+                  phone: "77777777777",
+                  state: true
+              },
+              {
+                  id: "美女荷官在线发牌",
+                  phone: "66666",
+                  state: true
+              }
+          ]
       };
     },
     methods: {
-        next() {
-            if (this.active++ > 2) this.active = 0;
-        }
+        
     },
     watch: {
         
@@ -48,25 +88,15 @@
     #contain {
         position: relative;
     }
-    .text {
-        font-size: 14px;
-    }
 
-    .item {
-        margin-bottom: 18px;
-    } 
-
-    .clearfix:before,
-    .clearfix:after {
-        display: table;
-        content: "";
+    .el-table {
+        text-align: left;
     }
-    .clearfix:after {
-        clear: both
-    }
-
-    .box-card {
-        width: 480px;
+    
+    #ApplyTable {
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
         position: relative;
         top: 50px;
     }

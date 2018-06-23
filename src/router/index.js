@@ -61,6 +61,11 @@ export default new Router({
           path: 'AllSchool',
           name: 'AllSchool',
           component: resolve => require(['@/components/MainPage/AllSchool'], resolve)
+        },
+        {
+          path: 'MessageCenter',
+          name: 'MessageCenter',
+          component: resolve => require(['@/components/MainPage/MessageCenter'], resolve)
         }
       ]
     }
