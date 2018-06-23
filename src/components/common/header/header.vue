@@ -1,0 +1,65 @@
+<template>
+    <div>
+        <el-menu
+          default-active="active"
+          class="el-menu-demo" 
+          mode="horizontal" 
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+            <el-menu-item class="right" index="LogOut">LogOut</el-menu-item>
+            <el-menu-item class="right" index="name"></el-menu-item>
+            <el-menu-item index="UserInfo">UserInfo</el-menu-item>
+            <el-menu-item index="ApplySchool">ApplySchool</el-menu-item>
+            <el-menu-item index="AllSchool">AllSchool</el-menu-item>
+        </el-menu>
+    </div>
+</template>
+
+<script>
+//import {mapGetters, mapMutations} from 'vuex'
+export default {
+  name: 'header',
+  props: {
+      active: {
+          type: String,
+          required: true
+      }
+  },
+  data () {
+    return {
+    }
+  },
+    methods:{
+        handleSelect(key, keyPath) {
+            if(key == "LogOut"){
+                this.$router.push('/login');
+            }
+            else{
+                this.$emit('update:active', key);
+            }
+        }
+    }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+    .el-button {
+        margin-top: 20px;
+        width: 60%;
+    }
+    .el-menu-demo {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    .right{
+        float: right;
+        position: relative;
+        right: 50px;
+    }
+    
+</style>

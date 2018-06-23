@@ -66,7 +66,13 @@ export default {
                 var res = $.post('/api/regist',{account:account, password:password, phone:phone}, (data)=>{
                     console.log(data);
                     if(data.status == true){
-                        this.$router.push('/MainPage');
+                        this.$router.push({
+                            path: '/MainPage/UserInfo',
+                            name: 'UserInfo',
+                            params: {
+                                account: this.account
+                            }
+                        });
                     }
                     else{
                         this.$message({
