@@ -10,9 +10,9 @@
           active-text-color="#ffd04b">
             <el-menu-item class="right" index="LogOut">LogOut</el-menu-item>
             <el-menu-item class="right" index="name"></el-menu-item>
-            <el-menu-item index="UserInfo">UserInfo</el-menu-item>
-            <el-menu-item index="ApplySchool">ApplySchool</el-menu-item>
-            <el-menu-item index="AllSchool">AllSchool</el-menu-item>
+            <el-menu-item index="UserInfo">用户中心</el-menu-item>
+            <el-menu-item index="ApplySchool">我的申请</el-menu-item>
+            <el-menu-item index="AllSchool">驾校信息</el-menu-item>
         </el-menu>
     </div>
 </template>

@@ -12,7 +12,7 @@
         </el-menu>
         <el-carousel :interval="4000" arrow="always">
             <el-carousel-item v-for="item in 4" :key="item">
-                <h3>Fuck{{ item }}</h3>
+                <img class="img" src="../assets/banner2.jpg"/>
             </el-carousel-item>
         </el-carousel>
     </div>
@@ -61,6 +61,14 @@
         line-height: 200px;
         margin: 0;
     }
+
+    .el-carousel{
+        height: 500px;
+    }
+
+    .el-carousel__item{
+        height: 430px;
+    }
   
     .el-carousel__item:nth-child(2n) {
         background-color: #99a9bf;
@@ -68,6 +76,10 @@
   
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
+    }
+
+    .el-carousel__item .img {
+        width: 100%;
     }
     
 </style>

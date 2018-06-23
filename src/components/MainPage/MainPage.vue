@@ -2,7 +2,6 @@
     <div>
         <v-header :active.sync="active"></v-header>
         <router-view></router-view>
-        <h2>{{account}}</h2>
     </div>
 </template>
 
@@ -13,6 +12,9 @@ export default {
     computed: {
         account() {
             return this.$route.params.account;
+        },
+        user(){
+            return this.$route.params.user;
         }
     },
     data () {
@@ -32,7 +34,8 @@ export default {
                 path: `${this.active}`,
                 name: this.active,
                 params: {
-                    account: this.$route.params.account
+                    account: this.$route.params.account,
+                    user: this.$route.params.user
                 }
             });
         }

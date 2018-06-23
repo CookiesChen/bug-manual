@@ -33,7 +33,24 @@ export default new Router({
         {
           path: 'UserInfo',
           name: 'UserInfo',
-          component: resolve => require(['@/components/MainPage/UserInfo'], resolve)
+          component: resolve => require(['@/components/MainPage/UserInfo/UserInfo'], resolve),
+          children: [
+            {
+              path: 'MyFriend',
+              name: 'MyFriend',
+              component: resolve => require(['@/components/MainPage/UserInfo/MyFriend'], resolve)
+            },
+            {
+              path: 'MyUser',
+              name: 'MyUser',
+              component: resolve => require(['@/components/MainPage/UserInfo/MyUser'], resolve)
+            },
+            {
+              path: 'MySchool',
+              name: 'MySchool',
+              component: resolve => require(['@/components/MainPage/UserInfo/MySchool'], resolve)
+            }
+          ]
         },
         {
           path: 'ApplySchool',
