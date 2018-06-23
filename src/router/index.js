@@ -7,7 +7,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: "/login"
+      redirect: "/index"
+    },
+    {
+      path: '/index',
+      component: resolve => require(['@/components/Index'], resolve)
     },
     {
       path: '/login',
