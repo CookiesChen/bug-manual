@@ -49,6 +49,11 @@ export default new Router({
               path: 'MySchool',
               name: 'MySchool',
               component: resolve => require(['@/components/MainPage/UserInfo/MySchool'], resolve)
+            },
+            {
+              path: 'MyTrain',
+              name: 'MyTrain',
+              component: resolve => require(['@/components/MainPage/UserInfo/MyTrain'], resolve)
             }
           ]
         },

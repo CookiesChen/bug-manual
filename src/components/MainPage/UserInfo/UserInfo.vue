@@ -8,7 +8,7 @@
                 <img class="img" src="../../../assets/head.jpg"/>
             </div>
             <h1>{{account}}</h1>
-            <p class="message">{{user.phone}} | {{user.phone}}</p>
+            <p class="message">{{MyRole}} | {{user.phone}}</p>
         </div>
         <el-menu
             id="guide"
@@ -20,11 +20,15 @@
             </el-menu-item>
             <el-menu-item index="MyUser">
                 <i class="fa fa-address-card" aria-hidden="true"></i>
-                <span slot="title">我的教练</span>
+                <span slot="title">{{MyUserString}}</span>
             </el-menu-item>
             <el-menu-item index="MySchool">
                 <i class="fa fa-car" aria-hidden="true"></i>
                 <span slot="title">我的驾校</span>
+            </el-menu-item>
+            <el-menu-item index="MyTrain">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <span slot="title">我的训练</span>
             </el-menu-item>
         </el-menu>
         <router-view id="extand"></router-view>
@@ -39,6 +43,22 @@
         },
         user(){
             return this.$route.params.user;
+        },
+        MyUserString(){
+            if(this.$route.params.user.role == "trainer"){
+                return "我的学员";
+            }
+            else{
+                return "我的教练";
+            }
+        },
+        MyRole(){
+            if(this.$route.params.user.role == "trainer"){
+                return "教练";
+            }
+            else{
+                return "学员";
+            }
         }
     },
     data() {
@@ -104,8 +124,8 @@
         color: #aaaaaf;
         font-size: 20px;
         position: absolute;
-        top: 90px;
-        left: 380px;
+        top: 125px;
+        left: 250px;
     }
     #guide {
         position: relative;

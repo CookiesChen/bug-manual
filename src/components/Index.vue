@@ -7,23 +7,24 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-            <el-menu-item class="right" index="1">LogIn</el-menu-item>
-            <el-menu-item class="right" index="2">Register</el-menu-item>
+            <el-menu-item class="right" index="1"><i class="top_icon fa fa-sign-in" aria-hidden="true"></i>LogIn</el-menu-item>
+            <el-menu-item class="right" index="2"><i class="top_icon fa fa-user-plus" aria-hidden="true"></i>Register</el-menu-item>
+            <i id="car_icon" class="fa fa-car" aria-hidden="true"></i>
+            <span id="title">To Be Old Driver</span>
         </el-menu>
-        <el-carousel :interval="4000" arrow="always">
+        <el-carousel :interval="1800" arrow="always">
             <el-carousel-item>
-                <img class="img" src="../assets/b1.jpg"/>
+                <img class="img" src="../assets/car.jpg"/>
             </el-carousel-item>
             <el-carousel-item>
-                <img class="img" src="../assets/b2.jpg"/>
+                <img class="img" src="../assets/car2.jpg"/>
             </el-carousel-item>
             <el-carousel-item>
-                <img class="img" src="../assets/b1.jpg"/>
-            </el-carousel-item>
-            <el-carousel-item>
-                <img class="img" src="../assets/b2.jpg"/>
+                <img class="img" src="../assets/car3.jpg"/>
             </el-carousel-item>
         </el-carousel>
+        <p class="poem">秋名山上行人稀，常有车手较高低</p>
+        <p class="poem">如今山路依旧在，不见当年老司机</p>
     </div>
 </template>
 
@@ -53,13 +54,10 @@
 
 <style scoped>
     #contain {
-        background-color: #99a9bf;
+        
     }
     .el-menu-demo {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
+        border: 0px;
     }
     .right{
         float: right;
@@ -75,12 +73,12 @@
     }
 
     .el-carousel{
-        height: 600px;
+        height: 700px;
+        position: relative;
     }
 
     .el-carousel__item{
-        height: 600px;
-        background-color: #99a9bf;
+        height: 700px;
     }
     .el-carousel__item img{
         position: relative;
@@ -90,5 +88,30 @@
     .el-carousel__item .img {
         width: 100%;
     }
+
+    #title {
+        float: left;
+        color: white;
+        font-size: 30px;
+        position: relative;
+        left: 100px;
+        top: 15px;
+    }
     
+    #car_icon {
+        float: left;
+        color: white;
+        font-size: 30px;
+        position: relative;
+        left: 80px;
+        top: 15px;
+    }
+    .poem {
+        font-size: 22px;
+    }
+    
+    .top_icon {
+        color: white;
+        margin-right: 8px;
+    }
 </style>

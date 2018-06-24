@@ -30,14 +30,54 @@ export default {
     watch: {
         active (newVal){
             console.log(newVal);
-            this.$router.push({
+            if(this.active == 'UserInfo'){
+                this.$router.push({
+                    name: 'UserInfo',
+                    params: {
+                        account: this.$route.params.account,
+                        user: this.$route.params.user
+                    }
+                });
+            }
+            else if(this.active == 'ApplySchool'){
+                var res = $.post('/api/getapply',{account:this.account, role:this.user.role}, (data)=>{
+                    console.log(data);
+                    this.$router.push({
+                        name: 'ApplySchool',
+                        params: {
+                            account: this.account,
+                            user: this.user,
+                            schools: data.schools
+                        }
+                    });
+                });
+            }
+            else if(this.active == 'AllSchool'){
+                this.$router.push({
+                    name: 'AllSchool',
+                    params: {
+                        account: this.$route.params.account,
+                        user: this.$route.params.user
+                    }
+                });
+            }
+            else if(this.active == 'MessageCenter'){
+                this.$router.push({
+                    name: 'MessageCenter',
+                    params: {
+                        account: this.$route.params.account,
+                        user: this.$route.params.user
+                    }
+                });
+            }
+            /*this.$router.push({
                 path: `${this.active}`,
                 name: this.active,
                 params: {
                     account: this.$route.params.account,
                     user: this.$route.params.user
                 }
-            });
+            });*/
         }
     }
 }

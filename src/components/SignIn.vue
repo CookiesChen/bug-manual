@@ -1,5 +1,18 @@
 <template>
-  <div id="contain">
+<div id="back">
+    <el-menu
+          class="el-menu-demo" 
+          mode="horizontal" 
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+            <el-menu-item class="right" index="1"><i class="top_icon fa fa-home" aria-hidden="true"></i>HomePage</el-menu-item>
+            <el-menu-item class="right" index="2"><i class="top_icon fa fa-sign-in" aria-hidden="true"></i>LogIn</el-menu-item>
+            <i id="car_icon" class="fa fa-car" aria-hidden="true"></i>
+            <span id="title">To Be Old Driver</span>
+    </el-menu>
+  <div class="contain">
     <el-row>
         <i id="top_pic" class="fa fa-user-plus"></i>
     </el-row>
@@ -34,6 +47,7 @@
         <el-button id="reset" type="primary" v-on:click="reset()" display="block">重置</el-button>
     </el-row>
   </div>
+</div>
 </template>
 
 <script>
@@ -98,6 +112,18 @@ export default {
             this.phone = '';
             this.password = '';
             this.sure_password = '';
+        },
+        handleSelect(key, keyPath) {
+            console.log(key);
+            switch(key){
+                case '1':
+                    this.$router.push('/');
+                    break;
+                case '2':
+                    this.$router.push('/LogIn');
+                    break;
+                default: break;
+            }
         }
     }
 }
@@ -112,22 +138,75 @@ export default {
     .el-input {
         width: 60%;
         margin-bottom: 30px;
-        position: relative;
-        top: 50px;
     }
-    #contain {
-        height: 550px;
-        width: 30%;
-        margin: auto;
-        background-color: #D3DCE6;
-    }
-    #submit {        
+    #name_row{
         margin-top: 60px;
     }
+    .contain {
+        height: 500px;
+        width: 380px;
+        margin: auto;
+        z-index: 1;
+        position: relative;
+        top: 120px;
+        border-radius: 10px;
+        background-position: center top;
+        background-size: cover;
+        overflow: hidden;
+        box-shadow: 8px 8px 20px rgba(46, 49, 49, 0.4);
+    }
+    .contain::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        
+        /*background-image: url(../assets/city.jpg) ;*/
+        background-color: rgba(255,255,255,0.3);
+    }
     #top_pic {
-        font-size: 40px;
+        font-size: 30px;
         color: white;
         position: relative;
-        top: 20px;
+        top: 35px;
+    }
+    #submit {        
+        margin-top: 0px;
+    }
+    #back {
+        background: url(../assets/city.jpg) no-repeat;
+        height: 100%;
+        position: relative;
+    }
+    .el-menu-demo {
+        border: 0px;
+    }
+    .right{
+        float: right;
+        position: relative;
+        right: 50px;
+    }
+    #title {
+        float: left;
+        color: white;
+        font-size: 30px;
+        position: relative;
+        left: 100px;
+        top: 15px;
+    } 
+    #car_icon {
+        float: left;
+        color: white;
+        font-size: 30px;
+        position: relative;
+        left: 80px;
+        top: 15px;
+    }
+    .top_icon {
+        color: white;
+        margin-right: 8px;
     }
 </style>

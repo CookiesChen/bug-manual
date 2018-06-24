@@ -8,7 +8,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-            <el-menu-item class="right" index="LogOut">LogOut</el-menu-item>
+            <el-menu-item class="right" index="LogOut"><i class="top_icon fa fa-sign-out" aria-hidden="true"></i>LogOut</el-menu-item>
             <el-menu-item index="UserInfo">用户中心</el-menu-item>
             <el-menu-item index="ApplySchool">我的申请</el-menu-item>
             <el-menu-item index="AllSchool">驾校信息</el-menu-item>
@@ -58,7 +58,6 @@ export default {
         width: 60%;
     }
     .el-menu-demo {
-        position: fixed;
         top: 0;
         right: 0;
         left: 0;
@@ -86,8 +85,12 @@ export default {
         color: white;
         font-size: 18px;
         position: relative;
-        top: 18px;
+        top: 20px;
         right: 100px;
     }
     
+    .top_icon {
+        color: white;
+        margin-right: 8px;
+    }
 </style>
