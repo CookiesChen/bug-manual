@@ -30,14 +30,16 @@
             statusFilter(status){
                 const statusMap = {
                     'accept': 'success',
-                    'wait': 'info'
+                    'wait': 'info',
+                    'reject': 'warning'
                 }
                 return statusMap[status];
             },
             formatState(status){
                 const statusMap = {
                     'accept': '已通过',
-                    'wait': '审核中'
+                    'wait': '审核中',
+                    'reject': '被拒绝'
                 }
                 return statusMap[status];
             }
@@ -52,7 +54,7 @@
             tableData(){
                 var schools_ = this.$route.params.schools;
                 for(var i in schools_){
-                    var date = new Date(schools_[i].time);
+                    var date = new Date(schools_[i].applytime);
                     schools_[i].timeString = formatDate(date, 'yyyy-MM-dd hh:mm');
                 }
                 return schools_;

@@ -40,14 +40,15 @@ export default {
                 });
             }
             else if(this.active == 'ApplySchool'){
-                var res = $.post('/api/getapply',{account:this.account, role:this.user.role}, (data)=>{
-                    console.log(data);
+                var res = $.post('/api/getapply',{account:this.account}, (data)=>{
+                    console.log("data->");
+                    console.log(data.data.schools);
                     this.$router.push({
                         name: 'ApplySchool',
                         params: {
                             account: this.account,
                             user: this.user,
-                            schools: data.schools
+                            schools: data.data.schools
                         }
                     });
                 });

@@ -84,7 +84,7 @@ export default {
                         name: 'UserInfo',
                         params: {
                             account: this.account,
-                            user: data.user
+                            user: data.data
                         }
                     });
                 }
