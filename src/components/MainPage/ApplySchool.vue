@@ -9,7 +9,7 @@
         </div>
         <div id="ApplyTable">
             <el-table :data="tableData" stripe style="width: 100%">
-                <el-table-column prop="_id" label="驾校ID" width="200px"></el-table-column>
+                <el-table-column prop="school" label="驾校ID" width="200px"></el-table-column>
                 <el-table-column prop="phone" label="电话" width="200px"></el-table-column>
                 <el-table-column prop="email" label="邮箱" width="200px"></el-table-column>
                 <el-table-column prop="timeString" label="申请时间" width="200px"></el-table-column>
