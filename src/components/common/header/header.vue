@@ -12,7 +12,7 @@
             <el-menu-item index="UserInfo">用户中心</el-menu-item>
             <el-menu-item index="ApplySchool">我的申请</el-menu-item>
             <el-menu-item index="AllSchool">驾校信息</el-menu-item>
-            <el-badge class="left" :value="12">
+            <el-badge class="left" :value="num">
                 <el-menu-item id="MessageCenter" index="MessageCenter">消息中心</el-menu-item>
             </el-badge>
             <span id="hello">Hello, {{account}}</span>
@@ -22,25 +22,33 @@
 
 <script>
 //import {mapGetters, mapMutations} from 'vuex'
+import { mapState } from 'vuex'
 export default {
-  name: 'header',
-  props: {
-      active: {
-          type: String,
-          required: true
-      },
-      account: {
-          type: String,
-          required: true
-      }
-  },
-  data () {
-    return {
-    }
-  },
+    name: 'header',
+    computed: {
+        ...mapState({
+            logged: state => state.user.logged,
+            account: state => state.user.account,
+            messages: state => state.user.messages
+        }),
+        num(){
+            return this.messages.length;
+        }
+    },
+    props: {
+        active: {
+            type: String,
+            required: true
+        }
+    },
+    data () {
+        return {
+        }
+    },
     methods:{
         handleSelect(key, keyPath) {
             if(key == "LogOut"){
+                this.$store.commit('logout');
                 this.$router.push('/login');
             }
             else{

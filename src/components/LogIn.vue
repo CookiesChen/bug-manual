@@ -17,13 +17,13 @@
         <i id="top_pic" class="fa fa-car"></i>
     </el-row>
     <el-row id="account">
-        <el-input v-model="account" placeholder="请输入帐号" clearable>  
+        <el-input v-model="account_" placeholder="请输入帐号" clearable>  
             <template slot="prepend">帐号</template>
             <i slot="prefix" class="el-input__icon fa fa-user" aria-hidden="true"></i>
         </el-input>
     </el-row>
     <el-row id="password">  
-        <el-input v-model="password" type="password" placeholder="请输入密码" clearable>  
+        <el-input v-model="password_" type="password" placeholder="请输入密码" clearable>  
             <template slot="prepend">密码</template> 
             <i slot="prefix" class="el-input__icon fa fa-lock" aria-hidden="true"></i>
         </el-input>
@@ -53,18 +53,24 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-  name: 'LogIn',
-  data () {
-    return {
-      account : "",
-      password : ""
-    }
-  },
+    name: 'LogIn',
+    data () {
+        return {
+            account_ : "",
+            password_ : ""
+        }
+    },
+    computed: {
+      ...mapState({
+        logged: state => state.user.logged
+      })
+    },
     methods:{
         login:function(){
-            var account = this.account;
-            var password = this.password;
+            var account = this.account_;
+            var password = this.password_;
 
             //test
             if(account == "" || password == ""){
@@ -76,16 +82,17 @@ export default {
                 return;
             }
 
-            var res = $.post('/api/login',{account:account, password:password}, (data)=>{
+            var res = $.post('/api/user/login',{account:account, password:password}, (data)=>{
                 console.log(data);
                 if(data.status == true){
-                    this.$router.push({
-                        path: '/MainPage/UserInfo',
-                        name: 'UserInfo',
-                        params: {
-                            account: this.account,
-                            user: data.data
-                        }
+                    //vuex
+                    this.$store.commit('setInfo', data.data);
+                    //get messages
+                    var res = $.get('/api/user/getmessages', (data)=>{
+                        this.$store.commit('setMessages', data.data.messages);
+                        this.$router.push({
+                            name: 'UserInfo'
+                        });
                     });
                 }
                 else{

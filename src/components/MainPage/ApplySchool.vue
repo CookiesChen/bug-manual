@@ -5,11 +5,11 @@
                 <img class="img" src="../../assets/head.jpg"/>
             </div>
             <h1>{{account}}</h1>
-            <p class="message">{{user.phone}} | {{user.phone}}</p>
+            <p class="message">{{MyRole}} | {{phone}}</p>
         </div>
         <div id="ApplyTable">
-            <el-table :data="tableData" stripe style="width: 100%">
-                <el-table-column prop="_id" label="驾校ID" width="200px"></el-table-column>
+            <el-table :data="schools_" stripe style="width: 100%">
+                <el-table-column prop="school" label="驾校ID" width="200px"></el-table-column>
                 <el-table-column prop="phone" label="电话" width="200px"></el-table-column>
                 <el-table-column prop="email" label="邮箱" width="200px"></el-table-column>
                 <el-table-column prop="timeString" label="申请时间" width="200px"></el-table-column>
@@ -25,6 +25,7 @@
 
 <script>
     import { formatDate } from '@/tool/formatDate.js'
+    import { mapState } from 'vuex'
     export default {
         filters: {
             statusFilter(status){
@@ -45,19 +46,33 @@
             }
         },
         computed: {
-            account() {
-                return this.$route.params.account;
-            },
-            user(){
-                return this.$route.params.user;
-            },
-            tableData(){
-                var schools_ = this.$route.params.schools;
+            ...mapState({
+                logged: state => state.user.logged,
+                account: state => state.user.account,
+                schoolId: state => state.user.schoolId,
+                phone: state => state.user.phone,
+                role: state => state.user.role,
+                schools: state => state.apply.applies
+            }),
+            schools_(){
+                var schools_ = this.schools;
                 for(var i in schools_){
                     var date = new Date(schools_[i].applytime);
                     schools_[i].timeString = formatDate(date, 'yyyy-MM-dd hh:mm');
                 }
+                if(schools_.length == 0) return [];
                 return schools_;
+            },
+            MyRole(){
+                if(this.role == "trainer"){
+                    return "教练";
+                }
+                if(this.role == "trainee"){
+                    return "学员";
+                }
+                else{
+                    return "未确定身份";
+                }
             }
         },
         data() {

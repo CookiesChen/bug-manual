@@ -1,21 +1,23 @@
 <template>
     <div>
-        <v-header :active.sync="active" :account.sync="account"></v-header>
+        <v-header :active.sync="active"></v-header>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
 import VHeader from '@/components/common/header/header'
+import {mapState} from 'vuex'
 export default {
     name: 'MainPage',
     computed: {
-        account() {
-            return this.$route.params.account;
-        },
-        user(){
-            return this.$route.params.user;
-        }
+        ...mapState({
+            logged: state => state.user.logged,
+            account: state => state.user.account,
+            schoolId: state => state.user.schoolId,
+            phone: state => state.user.phone,
+            role: state => state.user.role
+        })
     },
     data () {
         return {
@@ -29,46 +31,34 @@ export default {
     },
     watch: {
         active (newVal){
-            console.log(newVal);
             if(this.active == 'UserInfo'){
                 this.$router.push({
-                    name: 'UserInfo',
-                    params: {
-                        account: this.$route.params.account,
-                        user: this.$route.params.user
-                    }
+                    name: 'UserInfo'
                 });
             }
             else if(this.active == 'ApplySchool'){
-                var res = $.post('/api/getapply',{account:this.account}, (data)=>{
-                    console.log("data->");
-                    console.log(data.data.schools);
+                var res = $.get('/api/user/getapply', (data)=>{
+                    //vuex
+                    this.$store.commit('setApply', data.data);
                     this.$router.push({
-                        name: 'ApplySchool',
-                        params: {
-                            account: this.account,
-                            user: this.user,
-                            schools: data.data.schools
-                        }
+                        name: 'ApplySchool'
                     });
                 });
             }
             else if(this.active == 'AllSchool'){
-                this.$router.push({
-                    name: 'AllSchool',
-                    params: {
-                        account: this.$route.params.account,
-                        user: this.$route.params.user
-                    }
+                var res = $.get('/api/user/getallschools', (data)=>{
+                    this.$store.commit('setSchool', data.data.schools);
+                    this.$router.push({
+                        name: 'AllSchool',
+                    });
                 });
             }
             else if(this.active == 'MessageCenter'){
-                this.$router.push({
-                    name: 'MessageCenter',
-                    params: {
-                        account: this.$route.params.account,
-                        user: this.$route.params.user
-                    }
+                var res = $.get('/api/user/getmessages', (data)=>{
+                    this.$store.commit('setMessages', data.data.messages);
+                    this.$router.push({
+                        name: 'MessageCenter'
+                    });
                 });
             }
             /*this.$router.push({

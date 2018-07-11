@@ -8,7 +8,7 @@
                 <img class="img" src="../../../assets/head.jpg"/>
             </div>
             <h1>{{account}}</h1>
-            <p class="message">{{MyRole}} | {{user.phone}}</p>
+            <p class="message">{{MyRole}} | {{phone}}</p>
         </div>
         <el-menu
             id="guide"
@@ -16,7 +16,7 @@
             @select="handleSelect">
             <el-menu-item index="MyFriend">
                 <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                <span slot="title">我的好友</span>
+                <span slot="title">{{MyFriendString}}</span>
             </el-menu-item>
             <el-menu-item index="MyUser">
                 <i class="fa fa-address-card" aria-hidden="true"></i>
@@ -36,28 +36,41 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
   export default {
     computed: {
-        account() {
-            return this.$route.params.account;
-        },
-        user(){
-            return this.$route.params.user;
-        },
+        ...mapState({
+            logged: state => state.user.logged,
+            account: state => state.user.account,
+            schoolId: state => state.user.schoolId,
+            phone: state => state.user.phone,
+            role: state => state.user.role
+        }),
         MyUserString(){
-            if(this.$route.params.user.role == "trainer"){
+            if(this.role == "trainer"){
                 return "我的学员";
             }
             else{
                 return "我的教练";
             }
         },
-        MyRole(){
-            if(this.$route.params.user.role == "trainer"){
-                return "教练";
+        MyFriendString(){
+            if(this.role == "trainer"){
+                return "我的同事";
             }
             else{
+                return "我的同学";
+            }
+        },
+        MyRole(){
+            if(this.role == "trainer"){
+                return "教练";
+            }
+            if(this.role == "trainee"){
                 return "学员";
+            }
+            else{
+                return "未确定身份";
             }
         }
     },
@@ -68,13 +81,56 @@
     },
     methods: {
         handleSelect(key, keyPath) {
+            if(key == "MySchool"){
+
+            }
+            else if(key == "MyFriend"){
+                if(this.role == "trainer"){
+
+                }
+                else if(this.role == "trainee"){    
+                    var res = $.get('/api/trainee/getclassmate',(data)=>{
+                        this.$store.commit('setMembers', data.data);
+                        this.$router.push({
+                            name: "MyFriend"
+                        });
+                    });
+                }
+            }
+            else if(key == "MyUser") {
+                if(this.role == "trainer"){
+
+                }
+                else if(this.role == "trainee"){    
+                    var res = $.get('/api/trainee/gettrainer',(data)=>{
+                        this.$store.commit('setMembers', data.data.trainers);
+                        this.$router.push({
+                            name: "MyUser"
+                        });
+                    });
+                }
+            }
+            else if(key == "MyTrain"){
+                if(this.role == "trainer"){
+                    var res = $.get('/api/trainer/getmytrains',(data)=>{
+                        this.$store.commit('setMyTrains', data.data);
+                        this.$router.push({
+                            name: "MyTrain"
+                        });
+                    });
+                }
+                else if(this.role == "trainee"){
+                    var res = $.get('/api/trainee/getmytrains',(data)=>{
+                        this.$store.commit('setMyTrains', data.data);
+                        this.$router.push({
+                            name: "MyTrain"
+                        });
+                    });
+                }   
+            }
             this.$router.push({
                 path: `${key}`,
-                name: key,
-                params: {
-                    account: this.account,
-                    user: this.user
-                }
+                name: key
             });
         }
     },
@@ -86,6 +142,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
     #contain {
         position: relative;
     }
@@ -107,7 +169,7 @@
         width: 180px;
         height: 180px;
         position: relative;
-        white-space: nowrap;
+        /*white-space: nowrap;*/
     }
     #headImg .img {
         border-radius: 50%;

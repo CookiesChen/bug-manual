@@ -77,15 +77,11 @@ export default {
                 error_msg = "Two passwords are different";
             }
             else {
-                var res = $.post('/api/regist',{account:account, password:password, phone:phone}, (data)=>{
+                var res = $.post('/api/user/regist',{account:account, password:password, phone:phone}, (data)=>{
                     console.log(data);
                     if(data.status == true){
                         this.$router.push({
-                            path: '/MainPage/UserInfo',
-                            name: 'UserInfo',
-                            params: {
-                                account: this.account
-                            }
+                            path: '/login'
                         });
                     }
                     else{
