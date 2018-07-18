@@ -26,6 +26,11 @@ export default new Router({
       component: resolve => require(['@/components/SignIn'], resolve)
     },
     {
+      path: '/Admin',
+      name: 'Admin',
+      component: resolve => require(['@/components/Admin'], resolve)
+    },
+    {
       path: '/MainPage',
       name: 'MainPage',
       component: resolve => require(['@/components/MainPage/MainPage'], resolve),

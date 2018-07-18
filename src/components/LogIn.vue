@@ -87,6 +87,16 @@ export default {
                 if(data.status == true){
                     //vuex
                     this.$store.commit('setInfo', data.data);
+                    console.log(data.data.role);
+                        if(data.data.role == "admin"){
+                            var res = $.get('/api/school/getwait', (data)=>{
+                                this.$store.commit('setApply', data.data.apply);
+                                this.$router.push({
+                                name: 'Admin'
+                            });
+                        });
+                        return;
+                    }
                     //get messages
                     var res = $.get('/api/user/getmessages', (data)=>{
                         this.$store.commit('setMessages', data.data.messages);

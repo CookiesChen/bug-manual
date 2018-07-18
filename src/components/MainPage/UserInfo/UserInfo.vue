@@ -85,17 +85,15 @@
 
             }
             else if(key == "MyFriend"){
-                if(this.role == "trainer"){
-
-                }
-                else if(this.role == "trainee"){    
+                //if(this.role == "trainee"){    
                     var res = $.get('/api/trainee/getclassmate',(data)=>{
                         this.$store.commit('setMembers', data.data);
+                        console.log(data.data);
                         this.$router.push({
                             name: "MyFriend"
                         });
                     });
-                }
+                //}
             }
             else if(key == "MyUser") {
                 if(this.role == "trainer"){

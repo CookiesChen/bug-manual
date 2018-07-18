@@ -7,7 +7,8 @@ const state = {
     messages: [],
     mySchools: [],
     myTrains: [],
-    schoolMembers: []
+    schoolMembers: [],
+    applylist: []
   }
   
   const getters = {}
@@ -33,6 +34,9 @@ const state = {
     },
     setMembers (state, data) {
         state.schoolMembers = data;
+    },
+    setApply (state, data) {
+      state.applylist = data;
     },
     logout (state) {
       state.logged = false

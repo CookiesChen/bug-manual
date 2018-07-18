@@ -3,7 +3,6 @@
         <el-table :data="schoolMembers" stripe style="width: 80%">
             <el-table-column prop="_id" label="ID" width="150px"></el-table-column>
             <el-table-column prop="phone" label="电话" width="200px"></el-table-column>
-            <el-table-column prop="email" label="邮箱" width="200px" ></el-table-column>
             <el-table-column label="">
                 <template slot-scope="scope">
                     <el-button v-on:click="sentMessage(scope.row._id)">发送消息</el-button>

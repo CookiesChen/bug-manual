@@ -3,36 +3,34 @@
         <el-row>
             <el-col>
                 <h3 class="title">驾校信息</h3>
-                <el-table :data="school" stripe >
-                    <el-table-column prop="id" label="驾校ID" width="150px"></el-table-column>
-                    <el-table-column prop="phone" label="电话" width="200px"></el-table-column>
-                    <el-table-column prop="email" label="邮箱" ></el-table-column>
-                </el-table>
+                <p class="school">驾校ID : {{schoolId}}</p>
             </el-col>
             <el-col>
-                <h3 class="title">教练列表</h3>
-                <el-table :data="tableData" stripe >
+                <h3 class="title" v-show="onlyTraineeCanSee">教练列表</h3>
+                <el-table :data="tableData" stripe v-show="onlyTraineeCanSee">
                     <el-table-column prop="id" label="教练ID" width="150px"></el-table-column>
                     <el-table-column prop="phone" label="电话" width="200px"></el-table-column>
-                    <el-table-column prop="class" label="训练" >
+                    <el-table-column prop="class" label="训练">
                         <template slot-scope="scope">
-                            <el-popover placement="top-start" width="420" trigger="click">
-                                <el-table :data="scope.row.class">
-                                    <el-table-column prop="name" label="课程名称" width="180px"></el-table-column>
-                                    <el-table-column prop="cost" label="学费" width="120px"></el-table-column>
-                                    <el-table-column label="" width="120px">
-                                        <template slot-scope="scope">
-                                            <el-button v-on:click="sentMessage(scope.row._id)">报名</el-button>
-                                        </template>
-                                    </el-table-column>
-                                </el-table>
-                                <el-button slot="reference">课程</el-button>
-                            </el-popover>
+                            <el-button v-on:click="showclass(scope.row.id)">课程</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </el-col>
         </el-row>
+        <el-dialog title="教练课程" :visible.sync="dialogFormVisible">
+            <el-table :data="classtable">
+                <el-table-column prop="name" label="课程名称" width="180px"></el-table-column>
+                <el-table-column label="报名">
+                        <template slot-scope="scope">
+                            <el-button v-on:click="sign(scope.row.name)">报名</el-button>
+                        </template>
+                    </el-table-column>
+            </el-table>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -46,62 +44,50 @@
             schoolId: state => state.user.schoolId,
             phone: state => state.user.phone,
             role: state => state.user.role
-        })
+        }),
+        onlyTraineeCanSee() {
+            if(this.role != "none") return true;
+            console.log(this.role);
+            return false;
+        },
     },
     data() {
         return {
             tableData: [
                 {
-                    id:"王境泽",
-                    phone:"hhhh",
-                    schoolId:"东莞足浴城",
-                    class:[
-                        {name:"我王境泽就算饿死", cost:100}, 
-                        {name:"死外边", cost:166}, 
-                        {name:"从这跳下去", cost:244}, 
-                        {name:"也不会吃你们一点东西！", cost:177}, 
-                        {name:"真香~", cost:9988}]
+                    id:"trainer1",
+                    phone:"456445735425"
                 },
                 {
-                    id:"卢本伟",
-                    phone:"6666677777",
-                    schoolId:"山东蓝翔",
-                    class:[
-                        {name:"乌鸦坐飞机", cost:100}, 
-                        {name:"龙卷风摧毁停车场", cost:101}, 
-                        {name:"卢本伟牛逼", cost:9999}]
+                    id:"trainer2",
+                    phone:"6666677777"
                 },
                 {
-                    id:"干得漂亮啊马飞",
-                    phone:"110",
-                    schoolId:"澳门赌场",
-                    class:[
-                        {name:"火球术", cost:100}, 
-                        {name:"灵车漂移", cost:998}, 
-                        {name:"食我大屌", cost:100}]
-                },
-                {
-                    id:"芜湖大司马",
-                    phone:"2333333333",
-                    schoolId:"东莞足浴城",
-                    class:[
-                        {name:"落地机瞄98K", cost:100}, 
-                        {name:"吔屎啦", cost:233}, 
-                        {name:"真香", cost:199}]
+                    id:"trainer3",
+                    phone:"110"
                 }
             ],
-            school : [
-                {
-                    id:"王境泽",
-                    phone:"hhhh",
-                    email:"东莞足浴城"
-                }
-            ]
+            classtable : [],
+            dialogFormVisible: false
         };
     },
     methods: {
         sign: function(className){
             console.log(className);
+            var res = $.post('/api/trainee/jointrain',{name:className}, (data)=>{
+                this.$message({
+                    message: data.msg,
+                    center: true,
+                    type: 'success'
+                });
+            });
+        },
+        showclass: function(id){
+            console.log(id);
+            var res = $.post('/api/trainee/gettrainsbyid',{trainerId:id}, (data)=>{
+                this.classtable = data.data;
+            });
+            this.dialogFormVisible = true;
         }
     }
   }
@@ -129,6 +115,12 @@
 
     .item {
         margin-bottom: 18px;
+    }
+    .school {
+        text-align: left;
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(150, 150, 150);
     }
 
     .clearfix:before,
